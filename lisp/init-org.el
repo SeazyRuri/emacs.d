@@ -16,7 +16,7 @@
       org-html-validation-link nil
       org-export-kill-product-buffer-when-displayed t
       org-tags-column 80)
-
+(setq org-src-fontify-natively t)
 
 ;; Lots of stuff from http://doc.norang.ca/org-mode.html
 

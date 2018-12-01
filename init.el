@@ -129,7 +129,8 @@
 ;; (require 'init-mu)
 (require 'init-ledger)
 ;; Extra packages which don't require any configuration
-
+(require 'init-pyim)
+(require 'init-tide)
 (require-package 'gnuplot)
 (require-package 'lua-mode)
 (require-package 'htmlize)
@@ -164,15 +165,42 @@
 ;;----------------------------------------------------------------------------
 ;; Locales (setting them earlier in this file doesn't work in X)
 ;;----------------------------------------------------------------------------
-(require 'init-locales)
+;;(require 'init-locales)
 
 
 ;;----------------------------------------------------------------------------
 ;; Allow users to provide an optional "init-local" containing personal settings
 ;;----------------------------------------------------------------------------
-(require 'init-local nil t)
+;;(require 'init-local nil t)
 
+;;(add-to-list 'load-path "./tern/emacs")
+;;(autoload 'tern-mode "e:/emacs/.emacs.d/tern/emacs/tern.el" nil t)
+;;(add-hook 'js-mode-hook (lambda () (tern-mode t)))
+;; (eval-after-load 'tern '(progn
+;;                           (require 'tern-auto-complete)
+;;                           (tern-ac-setup)))
+(set-keyboard-coding-system 'utf-8)
+(set-clipboard-coding-system 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-buffer-file-coding-system 'utf-8)
+(set-selection-coding-system 'utf-8)
+(modify-coding-system-alist 'process "*" 'utf-8)
+(setq default-process-coding-system '(utf-8 . utf-8))
+(setq-default pathname-coding-system 'utf-8)
+;; set right chinese font
+(set-fontset-font "fontset-default" 'gb18030 '("Microsoft YaHei". "unicode-bmp"))
+(setq org-log-done 'time)
+(require 'tide)
+(setenv "PATH" "D:/Program Files/node-v8.1.3-win-x64;E:/emacs/bin")
+;;(when (memq window-system '(mac ns x))  (exec-path-from-shell-initialize))
 
+;; using comint mode with node
+(defun node-repl ()
+  "Node Repl."
+  (interactive)
+  (setenv "NODE_NO_READLINE" "1") ;avoid fancy terminal codes
+  (pop-to-buffer (make-comint "node-repl" "node" nil "--interactive")))
+;;(node-repl)
 
 (provide 'init)
 
