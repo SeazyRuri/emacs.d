@@ -48,7 +48,7 @@
 (require-package 'diminish)
 (require-package 'scratch)
 (require-package 'command-log-mode)
-
+(require 'init-my-locales)
 (require 'init-frame-hooks)
 (require 'init-xterm)
 (require 'init-themes)
@@ -129,8 +129,6 @@
 ;; (require 'init-mu)
 (require 'init-ledger)
 ;; Extra packages which don't require any configuration
-(require 'init-pyim)
-(require 'init-tide)
 (require-package 'gnuplot)
 (require-package 'lua-mode)
 (require-package 'htmlize)
@@ -179,16 +177,7 @@
 ;; (eval-after-load 'tern '(progn
 ;;                           (require 'tern-auto-complete)
 ;;                           (tern-ac-setup)))
-(set-keyboard-coding-system 'utf-8)
-(set-clipboard-coding-system 'utf-8)
-(set-terminal-coding-system 'utf-8)
-(set-buffer-file-coding-system 'utf-8)
-(set-selection-coding-system 'utf-8)
-(modify-coding-system-alist 'process "*" 'utf-8)
-(setq default-process-coding-system '(utf-8 . utf-8))
-(setq-default pathname-coding-system 'utf-8)
-;; set right chinese font
-(set-fontset-font "fontset-default" 'gb18030 '("Microsoft YaHei". "unicode-bmp"))
+
 (setq org-log-done 'time)
 (require 'tide)
 (setenv "PATH" "D:/Program Files/node-v8.1.3-win-x64;E:/emacs/bin")
@@ -201,6 +190,22 @@
   (setenv "NODE_NO_READLINE" "1") ;avoid fancy terminal codes
   (pop-to-buffer (make-comint "node-repl" "node" nil "--interactive")))
 ;;(node-repl)
+;; provide a git bash shell
+(setq explicit-shell-file-name "D:/Program Files (x86)/Git/bin/bash.exe")
+(setq shell-file-name explicit-shell-file-name)
+(add-to-list 'exec-path "D:/Program Files (x86)/Git/bin/")
+
+(defun run-cmd ()
+  "Run windows system cmd outside Emacs."
+  (interactive)
+  (w32-shell-execute "open" "cmd.exe"))
+(defun run-bash ()
+  "Run git bash outside Emacs."
+  (interactive)
+  (w32-shell-execute "open" "git-bash.exe"))
+(require 'init-pyim)
+(require 'init-web-mode)
+(require 'init-tide)
 
 (provide 'init)
 
