@@ -14,6 +14,18 @@
 (setq company-tooltip-align-annotations t)
 (add-hook 'before-save-hook 'tide-format-before-save)
 (add-hook 'typescript-mode-hook #'setup-tide-mode);
+;;;(remove-hook 'before-save-hook 'tide-compile-file);
+(defun tide-compile-on-save ()
+  "Before save hook to compile a ts file before each save."
+  (interactive)
+  (when (and (string-equal
+              (file-name-extension (buffer-file-name))
+              "ts")
+             (bound-and-true-p tide-mode))
+    (tide-compile-file);
+    ));
+(add-hook 'before-save-hook 'tide-compile-on-save)
+
 
 ;;; for javascript with js2-mode-hook
 (add-hook 'js2-mode-hook #'setup-tide-mode)
